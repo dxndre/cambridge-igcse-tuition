@@ -39,3 +39,25 @@ var header = document.getElementById('header');
 	});
 });
 
+
+// Getting shareable link for course pages
+
+document.addEventListener('DOMContentLoaded', function() {
+    function copyLinkToClipboard() {
+        var tempInput = document.createElement("input");
+        tempInput.value = window.location.href;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+
+        var copyMessage = document.getElementById("copyMessage");
+        copyMessage.style.display = "block";
+        setTimeout(function() {
+            copyMessage.style.display = "none";
+        }, 3000);
+    }
+
+    document.getElementById("copyLinkButton").addEventListener("click", copyLinkToClipboard);
+});
+

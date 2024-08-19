@@ -22,7 +22,7 @@
 
 <div id="wrapper">
 	<header>
-		<nav id="header" class="navbar navbar-expand-xl <?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
+		<nav id="header" class="navbar navbar-expand-lg <?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
 			<div class="container">
 				<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 					<?php
@@ -42,7 +42,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button> -->
 
-				<button class="btn d-flex d-xl-none offcanvas-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav">
+				<button class="btn d-flex d-lg-none offcanvas-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav">
 					<span class="menu-label">Menu</span>
 					<div class="lines">
 						<span class="line"></span>
@@ -52,7 +52,7 @@
 					
 				</button>
 
-				<div class="offcanvas offcanvas-end d-block d-xl-none" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+				<div class="offcanvas offcanvas-end d-block d-lg-none" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
 					<div class="offcanvas-header">
 						<h5 class="offcanvas-title" id="offcanvasNavLabel">Menu</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -110,7 +110,7 @@
 			if ( is_single() || is_archive() ) :
 		?>
 			<div class="row">
-				<div class="col-md-8 col-sm-12">
+				<div class="col-md-12 col-sm-12">
 		<?php
 			endif;
 		?>

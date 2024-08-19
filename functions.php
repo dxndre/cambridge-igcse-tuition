@@ -562,3 +562,23 @@ function cambridge_igcse_tuition_scripts_loader() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cambridge_igcse_tuition_scripts_loader' );
+
+
+
+// Adding infinite scroll theme support
+
+function custom_infinite_scroll_setup() {
+    add_theme_support( 'infinite-scroll', array(
+        'container' => 'posts-container', // The class or ID of the container
+        'render'    => 'custom_infinite_scroll_render',
+        'footer'    => false, // Set to false or adjust according to your theme
+    ) );
+}
+add_action( 'after_setup_theme', 'custom_infinite_scroll_setup' );
+
+function custom_infinite_scroll_render() {
+    while ( have_posts() ) {
+        the_post();
+        get_template_part( 'content', 'index' ); // Ensure this matches your template part
+    }
+}

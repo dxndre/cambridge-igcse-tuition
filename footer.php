@@ -5,7 +5,7 @@
 					</div><!-- /.col -->
 
 					<?php
-						get_sidebar();
+						// get_sidebar();
 					?>
 
 				</div><!-- /.row -->
@@ -26,8 +26,6 @@
 					<ul class="social-icons">
 						<li><a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
 						<li><a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
-						<li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-						<li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
 					</ul>
 					<h4>Email Me</h4>
 					<p><a class="email-link" href="mailtoms.malik36@googlemail.com">ms.malik36@googlemail.com</a></p>

@@ -8,19 +8,33 @@ get_header();
 if ( have_posts() ) :
 ?>
 <header class="page-header">
-	<h1 class="page-title">
-		<?php
-			if ( is_day() ) :
-				printf( esc_html__( 'Daily Archives: %s', 'cambridge-igcse-tuition' ), get_the_date() );
-			elseif ( is_month() ) :
-				printf( esc_html__( 'Monthly Archives: %s', 'cambridge-igcse-tuition' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'cambridge-igcse-tuition' ) ) );
-			elseif ( is_year() ) :
-				printf( esc_html__( 'Yearly Archives: %s', 'cambridge-igcse-tuition' ), get_the_date( _x( 'Y', 'yearly archives date format', 'cambridge-igcse-tuition' ) ) );
-			else :
-				esc_html_e( 'Blog Archives', 'cambridge-igcse-tuition' );
-			endif;
-		?>
-	</h1>
+	<div class="hero">
+		<div class="container">
+			<h1 class="page-title">
+				<?php
+					if ( is_day() ) :
+						printf( esc_html__( 'Daily Archives: %s', 'cambridge-igcse-tuition' ), get_the_date() );
+					elseif ( is_month() ) :
+						printf( esc_html__( 'Monthly Archives: %s', 'cambridge-igcse-tuition' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'cambridge-igcse-tuition' ) ) );
+					elseif ( is_year() ) :
+						printf( esc_html__( 'Yearly Archives: %s', 'cambridge-igcse-tuition' ), get_the_date( _x( 'Y', 'yearly archives date format', 'cambridge-igcse-tuition' ) ) );
+					else :
+						esc_html_e( '', 'cambridge-igcse-tuition' );
+					endif;
+
+					$terms = get_the_terms( get_the_ID(), 'course_category' );
+
+					if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+						foreach ( $terms as $term ) {
+							echo esc_html( $term->name );
+						}
+					}
+				?>
+			</h1>
+		</div>
+		
+	</div>
+	
 </header>
 <?php
 	get_template_part( 'archive', 'loop' );

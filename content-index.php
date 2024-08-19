@@ -4,12 +4,12 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'col-sm-6' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'col-sm-6 col-xl-4' ); ?>>
 	<div class="card mb-4">
 		<header class="card-body">
-			<h2 class="card-title">
+			<h3 class="card-title">
 				<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'cambridge-igcse-tuition' ), the_title_attribute( array( 'echo' => false ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-			</h2>
+			</h3>
 			<?php
 				if ( 'post' === get_post_type() ) :
 			?>
@@ -27,7 +27,7 @@
 				endif;
 			?>
 		</header>
-		<div class="card-body">
+		<div class="card-footer">
 			<div class="card-text entry-content">
 				<?php
 					if ( has_post_thumbnail() ) {
@@ -36,14 +36,15 @@
 
 					if ( is_search() ) {
 						the_excerpt();
-					} else {
-						the_content();
 					}
+					// } else {
+					// 	the_content();
+					// }
 				?>
 				<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . esc_html__( 'Pages:', 'cambridge-igcse-tuition' ) . '</span>', 'after' => '</div>' ) ); ?>
 			</div><!-- /.card-text -->
 			<footer class="entry-meta">
-				<a href="<?php the_permalink(); ?>" class="btn btn-outline-secondary"><?php esc_html_e( 'more', 'cambridge-igcse-tuition' ); ?></a>
+				<a href="<?php the_permalink(); ?>" class="btn cta"><?php esc_html_e( 'View Course', 'cambridge-igcse-tuition' ); ?></a>
 			</footer><!-- /.entry-meta -->
 		</div><!-- /.card-body -->
 	</div><!-- /.col -->
