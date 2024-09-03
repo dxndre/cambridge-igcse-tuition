@@ -24,8 +24,9 @@
 				<ul class="col-12 col-sm-6 col-md-5 contact order-md-last ms-auto">
 					<h4>Connect with us</h4>
 					<ul class="social-icons">
-						<li><a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+						<li><a href="https://www.facebook.com/groups/cambridgeenglishsupportandadvice/" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
+						<li><a href="https://www.youtube.com/@cambridgeigcsetuition" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+						<li><a href="https://www.instagram.com/cambridgeigcsetuition" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
 					</ul>
 					<h4>Email Me</h4>
 					<p><a class="email-link" href="mailtoms.malik36@googlemail.com">ms.malik36@googlemail.com</a></p>

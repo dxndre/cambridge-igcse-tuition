@@ -9,9 +9,23 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<div class="hero">
+		<div class="hero" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-bg.jpg' ); ?>')">
 			<div class="container">
 				<h1 class="entry-title"><?php the_title(); ?></h1>
+				<div class="dates">
+					<?php 
+
+					$start_date = get_field('course_start_date');
+					$end_date = get_field('course_end_date');
+
+					if ( $start_date && $end_date ) {
+						?>
+						<span><i class="fa-solid fa-calendar"></i><?php echo esc_html( $start_date ); ?> - <?php echo esc_html( $end_date ); ?></span>
+						<?php
+					}
+					?>
+				</div>
+				<a class="btn btn-primary cta" href="<?php echo get_field('store_page_link') ?>" target="_blank">Buy Course <i class="fa-solid fa-cart-shopping"></i></a>
 				<?php
 					if ( 'post' === get_post_type() ) :
 				?>
@@ -28,10 +42,10 @@
 	<div class="entry-content">
 		<div class="container">
 			<?php
-				if ( has_post_thumbnail() ) :
-					echo '<div class="post-thumbnail">' . get_the_post_thumbnail( get_the_ID(), 'large' ) . '</div>';
-				endif;
-				?>
+				// if ( has_post_thumbnail() ) :
+				// 	echo '<div class="post-thumbnail">' . get_the_post_thumbnail( get_the_ID(), 'large' ) . '</div>';
+				// endif;
+				// ?>
 
 				<div class="row">
 					<div class="col-12 col-md-8">
@@ -132,3 +146,19 @@
 		?>
 	</footer><!-- /.entry-meta -->
 </article><!-- /#post-<?php the_ID(); ?> -->
+
+<section id="contact" class="contact-section">
+	<div class="contact-section-form-holder" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-2.jpg' ); ?>')">
+		<div class="backdrop">
+			<div class="container">
+				<div class="content">
+					<h3>Leave a message</h3>
+					<?php
+						echo do_shortcode('[contact-form-7 id="f64b68e" title="Leave a message"]');
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</section>
