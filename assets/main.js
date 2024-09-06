@@ -61,3 +61,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("copyLinkButton").addEventListener("click", copyLinkToClipboard);
 });
 
+
+// Read More Link for Course Archive Pages
+
+document.addEventListener('DOMContentLoaded', function() {
+    var readMoreLink = document.querySelector('.read-more');
+    var fullDescription = document.querySelector('.full-description');
+
+    // Toggle the full description with a transition effect
+    readMoreLink.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Toggle the 'open' class to expand/collapse
+        if (fullDescription.classList.contains('open')) {
+            fullDescription.classList.remove('open');
+            readMoreLink.textContent = 'Read more';
+        } else {
+            fullDescription.classList.add('open');
+            readMoreLink.textContent = 'Read less';
+        }
+    });
+});

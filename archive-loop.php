@@ -33,5 +33,5 @@ endif;
 
 wp_reset_postdata();
 
-cambridge_igcse_tuition_content_nav( 'nav-above' );
-cambridge_igcse_tuition_content_nav( 'nav-below' );
+// cambridge_igcse_tuition_content_nav( 'nav-above' );
+// cambridge_igcse_tuition_content_nav( 'nav-below' );

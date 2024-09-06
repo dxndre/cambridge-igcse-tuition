@@ -11,7 +11,12 @@
 	<header class="entry-header">
 		<div class="hero" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-bg.jpg' ); ?>')">
 			<div class="container">
-				<h1 class="entry-title"><?php the_title(); ?></h1>
+				<div class="breadcrumbs">
+					<?php custom_course_breadcrumbs(); ?>
+				</div>
+				<h1 class="entry-title">
+					<?php the_title(); ?>
+				</h1>
 				<div class="dates">
 					<?php 
 
@@ -25,7 +30,11 @@
 					}
 					?>
 				</div>
-				<a class="btn btn-primary cta" href="<?php echo get_field('store_page_link') ?>" target="_blank">Buy Course <i class="fa-solid fa-cart-shopping"></i></a>
+				<div class="buttons-holder">
+					<a class="btn btn-primary cta" href="<?php echo get_field('store_page_link') ?>" target="_blank">Buy Course <i class="fa-solid fa-cart-shopping"></i></a>
+					<a class="read-more-link" href="#courseContent">Read More</a>
+				</div>
+				
 				<?php
 					if ( 'post' === get_post_type() ) :
 				?>
@@ -35,12 +44,13 @@
 				<?php
 					endif;
 				?>
-			</div>
-			
+			</div>			
 		</div>
 	</header><!-- /.entry-header -->
-	<div class="entry-content">
+
+	<div class="entry-content" id="courseContent">
 		<div class="container">
+			
 			<?php
 				// if ( has_post_thumbnail() ) :
 				// 	echo '<div class="post-thumbnail">' . get_the_post_thumbnail( get_the_ID(), 'large' ) . '</div>';

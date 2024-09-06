@@ -582,3 +582,50 @@ function custom_infinite_scroll_render() {
         get_template_part( 'content', 'index' ); // Ensure this matches your template part
     }
 }
+
+
+
+// Search Functionality 
+
+function custom_search_form_shortcode( $form ) {
+    $form = '<form role="search" method="get" class="search-form" action="' . home_url( '/' ) . '" >
+    <label>
+        <span class="screen-reader-text">' . _x( 'Search for:', 'label' ) . '</span>
+        <input type="search" class="search-field" placeholder="' . esc_attr_x( 'Search Courses', 'placeholder' ) . '" value="' . get_search_query() . '" name="s" />
+    </label>
+    <input type="submit" class="search-submit" value="'. esc_attr_x( 'Search', 'submit button' ) .'" />
+    </form>';
+
+    return $form;
+}
+add_shortcode( 'custom_search', 'custom_search_form_shortcode' );
+
+
+// Bredcrumbs on Single Course page 
+
+function custom_course_breadcrumbs() {
+    global $post;
+
+    // Define the main "Courses" link (modify the URL to your Courses page)
+    $courses_link = '<a href="' . get_permalink( get_page_by_path( 'courses' ) ) . '">Courses</a>';
+    
+    // Get the terms (categories) associated with the post
+    $terms = get_the_terms($post->ID, 'course_category'); // 'course_category' should be the custom taxonomy for courses
+    if ($terms && !is_wp_error($terms)) {
+        // Assuming the post is associated with one category
+        $term = array_shift($terms); 
+
+        // Get the link to the course category archive
+        $category_link = '<a href="' . get_term_link($term) . '">' . $term->name . '</a>';
+        
+        // Display the breadcrumb
+        echo '<div class="breadcrumbs">';
+        echo $courses_link . ' > ' . $category_link . ' > ';
+        echo '</div>';
+    } else {
+        // If no category is found, just show the course title after "Courses"
+        echo '<div class="breadcrumbs">';
+        echo $courses_link . ' > ' ;
+        echo '</div>';
+    }
+}
