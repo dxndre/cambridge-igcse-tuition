@@ -8,10 +8,21 @@ get_header();
 if ( have_posts() ) :
 ?>	
 	<header class="page-header">
-	<div class="hero">
+	<div class="hero" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-2.jpg' ); ?>')">
 			<div class="overlay"></div> <!-- Overlay -->
 			<div class="container">
-				<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'cambridge-igcse-tuition' ), get_search_query() ); ?></h1>
+				<div class="row">
+					<div class="col-lg-7">
+						<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'cambridge-igcse-tuition' ), get_search_query() ); ?></h1>
+					</div>
+					
+					<div class="col-lg-5">
+					<section class="search-section">
+						<h3><i class="fa-solid fa-magnifying-glass"></i>Search for Courses</h3>
+						<?php echo do_shortcode( '[searchandfilter fields="search,course_category" types=",select" submit_label="Search Courses"]' ); ?>
+					</section>
+					</div>				
+				</div>		
 			</div>
 		</div>
 	</header>
@@ -31,5 +42,24 @@ else :
 <?php
 endif;
 wp_reset_postdata();
+
+?>
+
+<section id="contact" class="contact-section">
+	<div class="contact-section-form-holder" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-2.jpg' ); ?>')">
+		<div class="backdrop">
+			<div class="container">
+				<div class="content">
+					<h3>Leave a message</h3>
+					<?php
+						echo do_shortcode('[contact-form-7 id="f64b68e" title="Leave a message"]');
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<?php
 
 get_footer();

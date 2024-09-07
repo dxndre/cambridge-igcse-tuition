@@ -52,7 +52,6 @@ if ( have_posts() ) :
 
 						<span class="course-colour" style="color: <?php echo $color; ?>;">&bull;</span>
 
-
 						<?php
 							if ( is_day() ) :
 								printf( esc_html__( 'Daily Archives: %s', 'cambridge-igcse-tuition' ), get_the_date() );
@@ -99,14 +98,11 @@ if ( have_posts() ) :
 					
 					<div class="col-lg-5">
 					<section class="search-section">
-						<h3>Search for Courses</h3>
-						<?php echo do_shortcode( '[searchandfilter fields="search,course_category" types=",radio,radio"]' ); ?>
+						<h3><i class="fa-solid fa-magnifying-glass"></i>Search for Courses</h3>
+						<?php echo do_shortcode( '[searchandfilter fields="search,course_category" types=",select" submit_label="Search Courses"]' ); ?>
 					</section>
-					</div>
-					
-				</div>
-				
-				
+					</div>				
+				</div>		
 			</div>
 		</div>
 </header>
@@ -119,5 +115,24 @@ else :
 endif;
 
 wp_reset_postdata(); // End of the loop.
+
+?>
+
+<section id="contact" class="contact-section">
+	<div class="contact-section-form-holder" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-2.jpg' ); ?>')">
+		<div class="backdrop">
+			<div class="container">
+				<div class="content">
+					<h3>Leave a message</h3>
+					<?php
+						echo do_shortcode('[contact-form-7 id="f64b68e" title="Leave a message"]');
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<?php
 
 get_footer();

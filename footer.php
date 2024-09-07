@@ -16,7 +16,7 @@
 		<footer id="footer">
 			<div class="footer-logo container">
 				<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-					<img class="footer-logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-light.png" alt="Logo">
+					<img class="footer-logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Logo">
 				</a>
 			</div>
 		<div class="container">

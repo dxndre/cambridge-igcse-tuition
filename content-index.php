@@ -6,35 +6,42 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'col-sm-6 col-xl-4' ); ?>>
 	<div class="card mb-4">
+		<div class="card-header">
+			<?php
+				// Get the terms for the custom taxonomy associated with the post
+				$terms = get_the_terms( get_the_ID(), 'course_category' );
+
+				if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+					foreach ( $terms as $term ) {
+						// Get the category color from the custom field
+						$category_colour = get_field('category_colour', $term);
+						
+						// Default color if no custom field is set
+						$color = $category_colour ? esc_attr($category_colour) : '#000000'; // Use black as default if no color is set
+						
+						// Output the term name and apply the background color
+						echo '<span class="course-category-pin" style="background-color: ' . $color . ';">' . esc_html($term->name) . '</span>';
+						
+						// Only show the first term; if you want to display multiple terms, remove the `break;`
+						break;
+					}
+				}
+			?>
+		</div>
 		<header class="card-body">
 			<h3 class="card-title">
 				<?php 
-					// Get the current taxonomy term object
-					$term = get_queried_object(); // Gets the current taxonomy term (e.g., custom taxonomy)
-
-					// Default color if the custom field is not set
-					$default_color = '#000000'; // Black color or any default color you prefer
-
-					if ($term && !is_wp_error($term)) {
-						// Retrieve the color field for the current taxonomy term
-						$category_colour = get_field('category_colour', $term);
-						
-						// Use the custom color if available, otherwise use the default color
-						$color = $category_colour ? esc_attr($category_colour) : $default_color;
-					} else {
-						// Fallback if term retrieval fails, use the default color
-						$color = $default_color;
-					}
-					?>
-
-					<span class="course-colour" style="color: <?php echo $color; ?>;">&bull;</span>
+					// Same logic to get and display the color in the course color span
+					$term = get_queried_object(); // Gets the current taxonomy term
+					$category_colour = get_field('category_colour', $term);
+					$color = $category_colour ? esc_attr($category_colour) : '#000000'; // Default color if not set
+				?>
+				<span class="course-colour" style="color: <?php echo $color; ?>;">&bull;</span>
 
 				<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'cambridge-igcse-tuition' ), the_title_attribute( array( 'echo' => false ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
 			</h3>
 
-			<?php
-				if ( 'post' === get_post_type() ) :
-			?>
+			<?php if ( 'post' === get_post_type() ) : ?>
 				<div class="card-text entry-meta">
 					<?php
 						cambridge_igcse_tuition_article_posted_on();
@@ -45,14 +52,11 @@
 						endif;
 					?>
 				</div><!-- /.entry-meta -->
-			<?php
-				endif;
-			?>
+			<?php endif; ?>
 		</header>
 		<div class="card-footer">
 			<div class="dates">
 				<?php 
-
 				$start_date = get_field('course_start_date');
 				$end_date = get_field('course_end_date');
 
@@ -63,18 +67,11 @@
 				}
 				?>
 			</div>
-			<div class="card-text entry-content">
+			<div class="card-text entry-content d-none">
 				<?php
-					// if ( has_post_thumbnail() ) {
-					// 	echo '<div class="post-thumbnail">' . get_the_post_thumbnail( get_the_ID(), 'large' ) . '</div>';
-					// }
-
 					if ( is_search() ) {
 						the_excerpt();
 					}
-					// } else {
-					// 	the_content();
-					// }
 				?>
 				<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . esc_html__( 'Pages:', 'cambridge-igcse-tuition' ) . '</span>', 'after' => '</div>' ) ); ?>
 			</div><!-- /.card-text -->
