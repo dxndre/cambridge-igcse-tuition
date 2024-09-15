@@ -22,7 +22,34 @@
 
 <div id="wrapper">
 	<header>
-		<nav id="header" class="navbar navbar-expand-lg <?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
+		<nav id="header" class="navbar navbar-expand-lg<?php
+			$classes = [];
+
+			// Add classes based on navbar position
+			if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) {
+				$classes[] = 'fixed-top'; 
+			} elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) {
+				$classes[] = 'fixed-bottom';
+			}
+
+			// Add 'home' class if it's the homepage or front page
+			if ( is_home() || is_front_page() ) {
+				$classes[] = 'home';
+			}
+
+			// Add 'navbar-dark' if 'dark_navigation' is enabled
+			$dark_navigation = get_field('dark_navigation');
+			if ( $dark_navigation && in_array('enable', $dark_navigation) ) {
+				$classes[] = 'navbar-dark';
+			}
+
+			// Output all classes as a single string without extra spaces
+			if ( !empty($classes) ) {
+				echo ' ' . esc_attr( implode( ' ', $classes ) );
+			}
+		?>">
+
+
 			<div class="container">
 				<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 					<?php

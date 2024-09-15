@@ -11,6 +11,26 @@
 	<header class="entry-header">
 		<div class="hero" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-bg.jpg' ); ?>')">
 			<div class="container">
+				<div class="tags">
+					<?php
+						$tags = get_the_tags();
+
+						if ($tags) {
+							foreach ($tags as $tag) {
+								// Check if the tag is "Most Popular"
+								if ($tag->name == 'Most Popular') {
+									echo '<span class="tag most-popular">
+											<i class="fa-solid fa-trophy"></i> ' . 
+											$tag->name . 
+										'</span>';
+								} else {
+									echo '<span class="tag">' . $tag->name . '</span>';
+								}
+							}
+						}
+					?>
+				</div>
+
 				<div class="breadcrumbs">
 					<?php custom_course_breadcrumbs(); ?>
 				</div>

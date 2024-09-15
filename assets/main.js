@@ -82,3 +82,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+// Read More Link for Store Page
+
+document.addEventListener('DOMContentLoaded', function() {
+    var readMoreLink = document.querySelector('.read-more');
+    var fullDescription = document.querySelector('.shop-description-remaining');
+
+    readMoreLink.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        if (fullDescription.classList.contains('open')) {
+            fullDescription.classList.remove('open');
+            readMoreLink.textContent = 'Read more';
+        } else {
+            fullDescription.classList.add('open');
+            readMoreLink.textContent = 'Read less';
+        }
+    });
+});
+
+

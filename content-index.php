@@ -27,16 +27,39 @@
 					}
 				}
 			?>
+
+			<div class="tags">
+				<?php
+					$tags = get_the_tags();
+
+					if ($tags) {
+						foreach ($tags as $tag) {
+							// Check if the tag is "Most Popular"
+							if ($tag->name == 'Most Popular') {
+								echo '<span class="tag most-popular">
+										<i class="fa-solid fa-trophy"></i> ' . 
+										$tag->name . 
+									'</span>';
+							} else {
+								echo '<span class="tag">' . $tag->name . '</span>';
+							}
+						}
+					}
+				?>
+			</div>
 		</div>
 		<header class="card-body">
 			<h3 class="card-title">
 				<?php 
-					// Same logic to get and display the color in the course color span
-					$term = get_queried_object(); // Gets the current taxonomy term
-					$category_colour = get_field('category_colour', $term);
-					$color = $category_colour ? esc_attr($category_colour) : '#000000'; // Default color if not set
+				// Fetch the terms associated with the current post
+				$terms = get_the_terms( get_the_ID(), 'course_category' ); // Replace 'course_category' with your actual taxonomy slug
+				if ( $terms && ! is_wp_error( $terms ) ) :
+					$term = $terms[0]; // Get the first term
+					$category_colour = get_field( 'category_colour', 'course_category_' . $term->term_id ); // Fetch color using term ID
+					$color = $category_colour ? esc_attr( $category_colour ) : '#000000'; // Default to black if no color is set
 				?>
-				<span class="course-colour" style="color: <?php echo $color; ?>;">&bull;</span>
+					<span class="course-colour" style="color: <?php echo $color; ?>;">&bull;</span>
+				<?php endif; ?>
 
 				<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'cambridge-igcse-tuition' ), the_title_attribute( array( 'echo' => false ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
 			</h3>
@@ -44,16 +67,17 @@
 			<?php if ( 'post' === get_post_type() ) : ?>
 				<div class="card-text entry-meta">
 					<?php
-						cambridge_igcse_tuition_article_posted_on();
+					cambridge_igcse_tuition_article_posted_on();
 
-						$num_comments = get_comments_number();
-						if ( comments_open() && $num_comments >= 1 ) :
-							echo ' <a href="' . esc_url( get_comments_link() ) . '" class="badge badge-pill bg-secondary float-end" title="' . esc_attr( sprintf( _n( '%s Comment', '%s Comments', $num_comments, 'cambridge-igcse-tuition' ), $num_comments ) ) . '">' . $num_comments . '</a>';
-						endif;
+					$num_comments = get_comments_number();
+					if ( comments_open() && $num_comments >= 1 ) :
+						echo ' <a href="' . esc_url( get_comments_link() ) . '" class="badge badge-pill bg-secondary float-end" title="' . esc_attr( sprintf( _n( '%s Comment', '%s Comments', $num_comments, 'cambridge-igcse-tuition' ), $num_comments ) ) . '">' . $num_comments . '</a>';
+					endif;
 					?>
 				</div><!-- /.entry-meta -->
 			<?php endif; ?>
 		</header>
+
 		<div class="card-footer">
 			<div class="dates">
 				<?php 

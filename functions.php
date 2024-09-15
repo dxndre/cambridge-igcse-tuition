@@ -629,3 +629,27 @@ function custom_course_breadcrumbs() {
         echo '</div>';
     }
 }
+
+
+// Only get courses from search results
+
+function modify_search_filter_query( $query ) {
+    if ( !is_admin() && $query->is_search() && $query->is_main_query() ) {
+        // Check if Search and Filter plugin is active and the post type is not set
+        if ( isset($_GET['s']) && empty($query->get('post_type')) ) {
+            $query->set( 'post_type', 'igcse' ); // Restrict to 'igcse' post type
+        }
+    }
+}
+add_action( 'pre_get_posts', 'modify_search_filter_query' );
+
+
+
+// Display all search results instead of just 10 
+
+function show_all_search_results( $query ) {
+    if ( !is_admin() && $query->is_search() && $query->is_main_query() ) {
+        $query->set( 'posts_per_page', -1 ); // Show all posts
+    }
+}
+add_action( 'pre_get_posts', 'show_all_search_results' );
