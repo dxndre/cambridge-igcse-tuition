@@ -233,6 +233,8 @@ img {
 		}
 
 		&.scrolled {
+			background-color:rgba(0, 0, 0, 0.651);
+
 			.navbar-nav {
 				.nav-item {
 					&.current-menu-item {
@@ -241,22 +243,30 @@ img {
 						}
 					}
 					.nav-link {
-						color: black;
+						color: white;
 					}
 				}
 			}
 
 			.navbar-brand {
 				img {
-					filter: invert(0)brightness(1);
+					filter: invert(1)brightness(1);
 				}
 			}
+
+			.offcanvas-toggler {
+				filter: invert(0)brightness(1);
+			}	
 		}
 
 		.navbar-brand {
 			img {
 				filter: invert(1)brightness(2);
 			}
+		}
+
+		.offcanvas-toggler {
+			filter: invert(1)brightness(2);
 		}
 	}
 
@@ -265,7 +275,11 @@ img {
 	}
 
 	&.fixed-top {
-		padding: 10px 0;
+		padding: 8px;
+
+		@include media-breakpoint-up(sm) { 
+			padding: 10px 8px;
+		}
 
 		@include media-breakpoint-up(md) { 
 			padding: 15px 0;
@@ -742,6 +756,17 @@ body {
 	section {
 		padding-left: 2em;
 		padding-right: 2em;
+		opacity: 0;
+		transform: translateY(3em);
+		filter: saturate(0);
+		transition: 0.3s all ease;
+
+		&.visible {
+			opacity: 1;
+			transform: translateY(0);
+			filter: saturate(1);
+			transition: 0.75s all ease;
+		}
 
 		@include media-breakpoint-up(lg) {
 			padding-left: 0;
@@ -891,6 +916,7 @@ body {
 
 				.wp-block-cover {
 					border-radius: 25px;
+					align-items: end;
 				}
 			}
 		}
@@ -900,6 +926,12 @@ body {
 		}
 
 		&.home-courses-section {
+			padding: 2.5em 0;
+
+			@include media-breakpoint-up(lg) {
+				// padding: 2.5em 2em;
+			}
+
 			.wp-block-cover {
 				img.wp-block-cover__image-background {
 					object-fit: fill;
@@ -912,7 +944,45 @@ body {
 						object-fit: cover;
 					}
 				}
-			}		
+			}
+			
+			.course-option-inner {
+				.wp-block-heading {
+					margin-bottom: 0;
+				}
+			}
+
+			.card {
+				.wp-block-cover {
+					border-radius: 0;
+
+					@include media-breakpoint-up(sm) {
+						border-radius: 10px;
+					}
+
+					@include media-breakpoint-up(md) {
+						padding: 24px !important;
+					}
+
+					@include media-breakpoint-up(lg) {
+						border-radius: 25px;
+						padding: 32px !important;
+					}
+
+					@include media-breakpoint-up(xxl) {
+						border-radius: 25px;
+						padding: 40px !important;
+					}
+				}
+			}
+
+			.course-columns {
+				gap: 0em;
+		
+				@include media-breakpoint-up(md) {
+					gap: 2em;
+				}
+			}
 		}
 
 		&.accordion-section {
@@ -948,6 +1018,9 @@ body {
 		}
 
 		&.text-image-section {
+			padding: 0;
+			margin-top: 2em;
+
 			figure {
 				position: relative;
 				right: -3em;
@@ -977,12 +1050,45 @@ body {
 					top: 5em;
 				}
 			}
+
+			.wp-block-cover__background {
+				z-index: 0;
+				animation: none;
+			}
+
+			.wp-block-cover__image-background {
+				animation: none;
+			}
+
+			.wp-block-cover {
+				padding: 0;
+
+				.cover-background {
+					img {
+						transform: 0;
+						filter: none;
+					}
+				}
+
+				.cover-foreground {
+					img {
+						transform: scale(1) translateX(20vw);
+						transition: 0.5s all ease;
+						filter: drop-shadow(-5px 25px 20px #000);
+					}
+				}
+			}
 		}
 
 		&.why-choose-us-section {
-			padding: 5em 2em;
+			// padding: 5em 2em;
+			padding: 0 2em;
 
-			@include media-breakpoint-up(md) {
+			@include media-breakpoint-up(lg) {
+				padding: 2em 0;
+			}
+
+			@include media-breakpoint-up(xl) {
 				padding: 5em 0;
 			}
 
@@ -1007,11 +1113,16 @@ body {
 			padding: 2em 0;
 
 			@include media-breakpoint-up(md) {
+				// padding: 3.5em 0;
+				padding: 0;
+			}
+
+			@include media-breakpoint-up(xl) {
 				padding: 5em 0;
 			}
 
-			h3 {
-				font-size: 2em;
+			h2 {
+				font-size: 1.5em;
 			}
 
 			.cta {
@@ -1023,6 +1134,13 @@ body {
 			.wp-block-cover,
 			.wp-block-cover__image-background {
 				object-fit: fill;
+				align-items: end;
+				min-height: 200px;
+
+				@include media-breakpoint-up(lg) {
+					min-height: 300px;
+				}
+	
 			}
 
 			.course-grid {
@@ -1076,10 +1194,19 @@ body {
 
 			.most-popular-courses {
 				margin: 3em 0;
+				grid-template-columns: repeat(1, minmax(0, 1fr));
+
+				@include media-breakpoint-up(lg) {
+					grid-template-columns: repeat(3, minmax(0, 1fr));
+				}
 
 				.wp-block-cover {
-					border-radius: 25px;
+					border-radius: 10px;
 					padding: 2em;
+
+					@include media-breakpoint-up(lg) {
+						border-radius: 25px;
+					}
 				}
 
 				.course-category-pin {
@@ -1145,6 +1272,15 @@ body {
 					font-size: 20px;
 					line-height: 32px;
 				}
+
+				.wptww-testimonials-text {
+					em {
+						&::before,
+						&::after {
+							color: black;
+						}
+					}
+				}
 			}
 
 			#wptww-testimonials-slidelist-1 {
@@ -1153,16 +1289,22 @@ body {
 
 			.wptww-quote {
 				.wptww-testimonial-content {
-					padding: 20px;
+					padding: 20px 25px;
+					// border: 1px solid black;
+					border-radius: 10px;
+					// background: #fff8e698;
+					background: white;
+					border: 1px solid white;
 
 					h4, i {
 						display: none;
 					}
 					p {
 						em {
+							color: black;
 							font-style: normal;
 							font-family: 'Fraunces Semibold', sans-serif;
-							font-size: 16px;
+							font-size: 14px;
 							line-height: 26px;
 
 							@include media-breakpoint-up(xl) {
@@ -1187,7 +1329,11 @@ body {
 			}
 
 			h3 {
-				font-size: 2.5em;
+				font-size: 1.25em;
+
+				@include media-breakpoint-up(lg) {
+					font-size: 2.5em;
+				}
 			}
 
 			form {
@@ -1203,12 +1349,18 @@ body {
 					}
 				}
 
+				p {
+					margin-bottom: 0;
+				}
+
 				span {
 					&.wpcf7-form-control-wrap {
 						width: 100%;
+						display: block;
 
 						input,
-						textarea {
+						textarea,
+						select {
 							width: 100%;
 							background: transparent;
 							padding: 16px 12px;
@@ -1228,8 +1380,19 @@ body {
 						textarea {
 							border: 1px solid black;
 							padding-left: 20px;
-							height: 200px;
+							// height: 200px;
+							height: 100%;
 						}
+
+						select {
+							padding-left: 0;
+							margin-bottom: 15px;
+
+							@include media-breakpoint-up(sm) {
+								margin-bottom: 0;
+							}
+						}
+
 
 					}
 
@@ -1239,6 +1402,12 @@ body {
 						margin: 20px 0;
 						display: block;
 					}
+				}
+
+				.left-side {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
 				}
 
 				.cta {
@@ -1276,11 +1445,20 @@ body {
 			padding-right: 0;
 
 			h3 {
-				font-size: 2.5em;
+				font-size: 1.75em;
+
+				@include media-breakpoint-up(md) {
+					font-size: 2.5em;
+				}
 			}
 
 			.insta-text {
-				padding: 5em 2em;
+				padding: 0 2em;
+				padding-bottom: 2em;
+
+				@include media-breakpoint-up(sm) {
+					padding: 3em 0;
+				}
 
 				@include media-breakpoint-up(md) {
 					padding: 5em 0;
@@ -1300,6 +1478,8 @@ body {
 
 		&.about-text-section {
 			padding: 5em 2em;
+			background: black;
+			color: white;
 
 			.inner-content {
 				width: 100%;
@@ -1714,6 +1894,20 @@ body {
 					object-fit: cover;
 					z-index: -1;
 				}
+
+				&.with-search {
+					.wp-block-columns {
+						flex-direction: column;
+
+						.wp-block-heading {
+							margin-left: 0;
+						}
+
+						@include media-breakpoint-up(lg) {
+							flex-direction: row;
+						}
+					}
+				}
 			}
 
 			h2 {
@@ -1800,8 +1994,9 @@ body {
 
 		// About Page
 		&.page-id-14 {
-			.wp-block-cover {
+			.wp-block-cover {				
 				&.hero {
+					background-color: black;
 					padding-top: 15vh;
 
 					@include media-breakpoint-down(md) {
@@ -1809,6 +2004,16 @@ body {
 					}
 					@include media-breakpoint-up(md) {
 						padding-top: 0;
+					}
+
+					.text-side {
+						height: 500px;
+						display: flex;
+						align-items: end;
+
+						h2 {
+							margin: 0;
+						}
 					}
 				}
 				
@@ -1869,8 +2074,16 @@ body {
 
 			section {
 				&.shop-courses-section {
+					padding: 0;
+
 					.course-category-type {
 						margin-bottom: 3em;
+
+						.wp-block-query {
+							h3 {
+								font-size: 22px;
+							}
+						}
 					}
 
 					h3 {
@@ -1936,9 +2149,80 @@ body {
 							color: white;
 						}
 					}
+					
+					.most-popular-courses {
+						grid-template-columns: repeat(1, minmax(0, 1fr));
+
+						@include media-breakpoint-up(md) {
+							grid-template-columns: repeat(2, minmax(0, 1fr));
+						}
+
+						@include media-breakpoint-up(lg) {
+							grid-template-columns: repeat(3, minmax(0, 1fr));
+						}
+					}
+				}
+			}
+
+			form {
+				.footnote {
+					color: black;
 				}
 			}
 		}
+
+		// Services Page
+		&.page-id-505 {
+			#header {
+				background: transparent;
+			}
+
+			.wp-block-cover {
+				&.service-block {
+					padding: 2em 1em;
+
+					@include media-breakpoint-up(md) {
+						padding: 3em 0;
+					}
+
+					@include media-breakpoint-down(lg) {
+						h3, p, .cta {
+							text-align: left !important;
+						}
+
+						.wp-block-buttons.is-content-justification-right {
+							justify-content: start;
+						}
+					}
+
+					.wp-block-columns {
+						margin-bottom: 0;
+						flex-direction: column;
+
+						@include media-breakpoint-up(lg) {
+							flex-direction: row;
+						}
+
+						.wp-block-column {
+							&:first-of-type {
+								min-width: auto;
+							}
+						}
+					}
+
+					.wp-block-heading {
+						margin-bottom: 0.75em;
+
+
+					}
+
+					.cta {
+						margin-top: 0.75em;
+					}
+				}
+			}
+		}
+
 	}
 
 	&.single {
@@ -2320,6 +2604,12 @@ body {
 					color: black;
 					border-bottom: 1px solid black;
 				}
+			}
+
+			.title-section {
+				display: flex;
+				align-items: end;
+				height: 100%;
 			}
 		}
 
@@ -2727,6 +3017,7 @@ body {
 	}
 
 	p {
+		font-size: 14px;
 		margin-top: 10px;
 	}
 
@@ -2751,7 +3042,7 @@ body {
 			&[aria-current='page'] {
 				color: white;
 				border-bottom: 1px solid white;
-				border-radius: 4px;
+				// border-radius: 4px;
 			}
 		}
 	}

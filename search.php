@@ -13,16 +13,18 @@ if ( have_posts() ) :
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
-                        <h1 class="page-title">
-                            <?php 
-                            $search_query = get_search_query();
-                            if ( empty( $search_query ) ) {
-                                esc_html_e( 'All Courses', 'cambridge-igcse-tuition' );
-                            } else {
-                                printf( esc_html__( 'Search Results for: %s', 'cambridge-igcse-tuition' ), esc_html( $search_query ) );
-                            }
-                            ?>
-                        </h1>
+                        <div class="title-section">
+                            <h1 class="page-title">
+                                <?php 
+                                $search_query = get_search_query();
+                                if ( empty( $search_query ) ) {
+                                    esc_html_e( 'All Courses', 'cambridge-igcse-tuition' );
+                                } else {
+                                    printf( esc_html__( 'Search Results for: %s', 'cambridge-igcse-tuition' ), esc_html( $search_query ) );
+                                }
+                                ?>
+                            </h1>
+                        </div>
                     </div>
                     
                     <div class="col-lg-5">

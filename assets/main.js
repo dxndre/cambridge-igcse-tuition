@@ -104,3 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// Making each section fade in when scrolled on
+
+document.addEventListener("DOMContentLoaded", function() {
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target); // Stop observing once the section is visible
+                }
+            });
+        },
+        {
+            threshold: 0.25 // Trigger when 25% of the section is in view
+        }
+    );
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
