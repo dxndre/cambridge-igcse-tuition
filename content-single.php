@@ -10,61 +10,63 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<div class="hero" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-bg.jpg' ); ?>')">
-			<div class="container">
-				<div class="tags">
-					<?php
-						$tags = get_the_tags();
+			<div class="hero-overlay">
+				<div class="container">
+					<div class="tags">
+						<?php
+							$tags = get_the_tags();
 
-						if ($tags) {
-							foreach ($tags as $tag) {
-								// Check if the tag is "Most Popular"
-								if ($tag->name == 'Most Popular') {
-									echo '<span class="tag most-popular">
-											<i class="fa-solid fa-trophy"></i> ' . 
-											$tag->name . 
-										'</span>';
-								} else {
-									echo '<span class="tag">' . $tag->name . '</span>';
+							if ($tags) {
+								foreach ($tags as $tag) {
+									// Check if the tag is "Most Popular"
+									if ($tag->name == 'Most Popular') {
+										echo '<span class="tag most-popular">
+												<i class="fa-solid fa-trophy"></i> ' . 
+												$tag->name . 
+											'</span>';
+									} else {
+										echo '<span class="tag">' . $tag->name . '</span>';
+									}
 								}
 							}
-						}
-					?>
-				</div>
-
-				<div class="breadcrumbs">
-					<?php custom_course_breadcrumbs(); ?>
-				</div>
-				<h1 class="entry-title">
-					<?php the_title(); ?>
-				</h1>
-				<div class="dates">
-					<?php 
-
-					$start_date = get_field('course_start_date');
-					$end_date = get_field('course_end_date');
-
-					if ( $start_date && $end_date ) {
 						?>
-						<span><i class="fa-solid fa-calendar"></i><?php echo esc_html( $start_date ); ?> - <?php echo esc_html( $end_date ); ?></span>
-						<?php
-					}
+					</div>
+
+					<div class="breadcrumbs">
+						<?php custom_course_breadcrumbs(); ?>
+					</div>
+					<h1 class="entry-title">
+						<?php the_title(); ?>
+					</h1>
+					<div class="dates">
+						<?php 
+
+						$start_date = get_field('course_start_date');
+						$end_date = get_field('course_end_date');
+
+						if ( $start_date && $end_date ) {
+							?>
+							<span><i class="fa-solid fa-calendar"></i><?php echo esc_html( $start_date ); ?> - <?php echo esc_html( $end_date ); ?></span>
+							<?php
+						}
+						?>
+					</div>
+					<div class="buttons-holder">
+						<a class="btn btn-primary cta" href="<?php echo get_field('store_page_link') ?>" target="_blank">Buy Course <i class="fa-solid fa-cart-shopping"></i></a>
+						<a class="read-more-link" href="#courseContent">Read More</a>
+					</div>
+					
+					<?php
+						if ( 'post' === get_post_type() ) :
 					?>
-				</div>
-				<div class="buttons-holder">
-					<a class="btn btn-primary cta" href="<?php echo get_field('store_page_link') ?>" target="_blank">Buy Course <i class="fa-solid fa-cart-shopping"></i></a>
-					<a class="read-more-link" href="#courseContent">Read More</a>
-				</div>
-				
-				<?php
-					if ( 'post' === get_post_type() ) :
-				?>
-					<div class="entry-meta">
-						<?php cambridge_igcse_tuition_article_posted_on(); ?>
-					</div><!-- /.entry-meta -->
-				<?php
-					endif;
-				?>
-			</div>			
+						<div class="entry-meta">
+							<?php cambridge_igcse_tuition_article_posted_on(); ?>
+						</div><!-- /.entry-meta -->
+					<?php
+						endif;
+					?>
+				</div>			
+			</div>
 		</div>
 	</header><!-- /.entry-header -->
 

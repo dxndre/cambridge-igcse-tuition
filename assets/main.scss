@@ -228,6 +228,12 @@ img {
 			.nav-item {
 				.nav-link {
 					color: white;
+
+					&:hover {
+						&::after {
+							background-color: white;
+						}
+					}
 				}
 			}
 		}
@@ -381,14 +387,20 @@ img {
 			}
 
 			li {
+				display: inline-flex;
+				flex-direction: column;
+
 				&.current-menu-item {
 					a {
-						background-color: black;
-						color: white;
 						border-radius: 5px;
 
 						@include media-breakpoint-down(lg) { 
-							padding-left: 20px;
+							// padding-left: 20px;
+						}
+
+						@include media-breakpoint-up(lg) { 
+							color: white;
+							background-color: black;
 						}
 					}
 				}
@@ -401,10 +413,12 @@ img {
 					border-left: 1px solid black;
 					border-radius: 0;
 					margin-bottom: 20px;
+    				flex-direction: column;
 
 					&.show {
 						padding: 20px 0;
 						margin-left: 0;
+						display: flex;
 					}
 				}
 			}
@@ -927,9 +941,11 @@ body {
 
 		&.home-courses-section {
 			padding: 2.5em 0;
+			padding-bottom: 0;
 
 			@include media-breakpoint-up(lg) {
 				// padding: 2.5em 2em;
+				padding: 2.5em 0;
 			}
 
 			.wp-block-cover {
@@ -1078,6 +1094,14 @@ body {
 					}
 				}
 			}
+
+			.text-side {
+				padding: 1em;
+
+				@include media-breakpoint-up(lg) {
+					padding: 0;
+				}
+			}
 		}
 
 		&.why-choose-us-section {
@@ -1207,6 +1231,17 @@ body {
 					@include media-breakpoint-up(lg) {
 						border-radius: 25px;
 					}
+
+					&:hover {
+						img {
+							transform: scale(1.125);
+							transition: 0.3s all ease;
+						}
+					}
+
+					img {
+						transition: 0.5s all ease;
+					}
 				}
 
 				.course-category-pin {
@@ -1243,6 +1278,7 @@ body {
 		}
 
 		&.testimonials-section {
+			opacity: 1;
 			padding: 5em 0;
 
 			.wp-block-heading {
@@ -1370,7 +1406,11 @@ body {
 
 							&::placeholder {
 								color: rgba(0,0,0,0.5);
-							  }
+							}
+
+							&:focus-visible {
+								outline: none;
+							}
 						}
 
 						input {
@@ -1387,6 +1427,8 @@ body {
 						select {
 							padding-left: 0;
 							margin-bottom: 15px;
+							-webkit-appearance: none;
+							border-radius: 0;
 
 							@include media-breakpoint-up(sm) {
 								margin-bottom: 0;
@@ -1416,6 +1458,7 @@ body {
 					padding: 12px 25px;
 					border-radius: 25px;
 					min-width: 200px;
+					border: transparent;
 					transition: 0.5s all ease;
 
 					&:hover {
@@ -2227,18 +2270,9 @@ body {
 
 	&.single {
 		.hero {
-			min-height: 400px;
-			display: flex;
-			align-items: center;
-			background-color: white;
-			padding-top: 3em;
-			background-repeat: no-repeat;
-			background-size: cover;
-			background-position: bottom;
-			background-attachment: fixed;
 
 			&::after {
-				content: '';
+				// content: '';
 				position: absolute;
 				top: 0;
 				left: 0;
@@ -2257,15 +2291,29 @@ body {
 				min-height: 500px;
 			}
 
+			.hero-overlay {
+				min-height: 500px;
+				display: flex;
+				align-items: center;
+				background-color: white;
+				padding-top: 3em;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: bottom;
+				background-attachment: fixed;
+				background: linear-gradient(180deg, #fff8e600 66%, #fff8e6 100%);
+			}
+
 			span {
 				&.tag {
 					background: black;
-					padding: 5px 20px;
+					padding: 4px 16px;
 					border-radius: 50px;
-					margin-bottom: 15px;
+					margin-bottom: 10px;
+					margin-left: 2em;
 					display: inline-block;
 					color: white;
-					font-size: 14px;
+					font-size: 12px;
 
 					i {
 						margin-right: 5px;
@@ -2278,6 +2326,13 @@ body {
 					&.most-popular {
 						background-color: #FF3CAC;
 						background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+					}
+
+					@include media-breakpoint-up(sm) {
+						padding: 5px 20px;
+						font-size: 14px;
+						margin-bottom: 15px;
+						margin-left: 0;
 					}
 				}
 			}
@@ -2299,15 +2354,17 @@ body {
 				gap: 20px;
 
 				.cta {
-					padding: 12px 25px;
+					padding: 8px 20px;
 					background: black;
-					font-size: 16px;
+					font-size: 14px;
 					border: none;
 					border-radius: 25px;
 					margin-left: 1em;
 	
 					@include media-breakpoint-up(sm) {
 						margin-left: 0em;
+						padding: 12px 25px;
+						font-size: 16px;
 					}
 	
 					i {
@@ -2336,12 +2393,20 @@ body {
 				span {
 					font-family: 'Pontano', sans-serif;
 					display: block;
-					font-size: 18px;
+					font-size: 14px;
 					margin-bottom: 12px;
 
+					@include media-breakpoint-up(md) {
+						font-size: 18px;
+					}
+
 					i {
-						font-size: 22px;
+						font-size: 18px;
 						margin-right: 10px;
+
+						@include media-breakpoint-up(md) {
+							font-size: 22px;
+						}
 					}
 				}
 			}
@@ -2357,6 +2422,11 @@ body {
 				display: block;
 				margin-bottom: 28px;
 				font-size: 14px;
+				padding: 0 1em;
+
+				@include media-breakpoint-up(sm) {
+					padding: 0;
+				}
 
 				a {
 					color: black;
