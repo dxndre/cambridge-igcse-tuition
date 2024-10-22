@@ -4,7 +4,7 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'col-sm-6 col-xl-4' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( is_sticky() ? 'col-lg-6 col-xl-8' : 'col-sm-6 col-xl-4' ); ?>>
 	<div class="card mb-4">
 		<div class="card-header">
 			<?php
@@ -32,21 +32,50 @@
 				<?php
 					$tags = get_the_tags();
 
+					// Check if the post is sticky
+					$is_sticky = is_sticky();
+
 					if ($tags) {
 						foreach ($tags as $tag) {
-							// Check if the tag is "Most Popular"
-							if ($tag->name == 'Most Popular') {
-								echo '<span class="tag most-popular">
-										<i class="fa-solid fa-trophy"></i> ' . 
-										$tag->name . 
-									'</span>';
-							} else {
-								echo '<span class="tag">' . $tag->name . '</span>';
+							// Sanitize the tag name
+							$tag_name = esc_html($tag->name);
+							$class = '';
+							$icon = '';
+
+							// Determine the class and icon based on the tag
+							switch ($tag_name) {
+								case 'Most Popular':
+									$class = 'most-popular';
+									$icon = '<i class="fa-solid fa-trophy"></i>';
+									break;
+								case 'Recorded':
+									$class = 'recorded';
+									$icon = '<i class="fa-solid fa-microphone"></i>';
+									break;
+								case 'Live':
+									$class = 'live';
+									$icon = '<i class="fa-solid fa-broadcast-tower"></i>';
+									break;
+								default:
+									$class = '';
+									$icon = '';
+									break;
 							}
+
+							// Output the tag with the appropriate class and icon
+							echo '<span class="tag ' . esc_attr($class) . '">' . $icon . ' ' . $tag_name . '</span>';
 						}
+					}
+
+					// Add a "Sticky" tag if the post is sticky
+					if ($is_sticky) {
+						echo '<span class="tag sticky">
+								<i class="fa-solid fa-thumbtack"></i> ' . esc_html__( 'Featured Post', 'cambridge-igcse-tuition' ) . '
+							</span>';
 					}
 				?>
 			</div>
+
 		</div>
 		<header class="card-body">
 			<h3 class="card-title">
@@ -100,7 +129,17 @@
 				<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . esc_html__( 'Pages:', 'cambridge-igcse-tuition' ) . '</span>', 'after' => '</div>' ) ); ?>
 			</div><!-- /.card-text -->
 			<footer class="entry-meta">
-				<a href="<?php the_permalink(); ?>" class="btn cta"><?php esc_html_e( 'Course Detail', 'cambridge-igcse-tuition' ); ?></a>
+				<a href="<?php the_permalink(); ?>" class="btn cta">
+					<?php
+					if ( get_post_type() === 'post' ) {
+						esc_html_e( 'Read Post', 'cambridge-igcse-tuition' );
+					} elseif ( get_post_type() === 'igcse' ) {
+						esc_html_e( 'Access Course', 'cambridge-igcse-tuition' );
+					} else {
+						esc_html_e( 'View Details', 'cambridge-igcse-tuition' ); // Default fallback
+					}
+					?>
+				</a>
 			</footer><!-- /.entry-meta -->
 		</div><!-- /.card-body -->
 	</div><!-- /.col -->

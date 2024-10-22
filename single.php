@@ -53,7 +53,9 @@ if ( $count_posts->publish > '1' ) :
 		}
 	?>
 </div><!-- /.post-navigation -->
+
 <?php
 endif;
+
 
 get_footer();

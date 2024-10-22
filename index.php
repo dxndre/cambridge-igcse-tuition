@@ -23,5 +23,21 @@ $page_id = get_option( 'page_for_posts' );
 		?>
 	</div><!-- /.col -->
 </div><!-- /.row -->
+
+<section id="contact" class="contact-section">
+	<div class="contact-section-form-holder" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-3.png' ); ?>')">
+		<div class="backdrop">
+			<div class="container">
+				<div class="content">
+					<h3>Leave a message</h3>
+					<?php
+						echo do_shortcode('[contact-form-7 id="f64b68e" title="Leave a message"]');
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 <?php
 get_footer();

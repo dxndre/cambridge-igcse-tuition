@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying content in the single.php template.
+ * The template for displaying content in the single-igcse.php template.
  *
  */
 ?>
@@ -9,7 +9,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<div class="hero" style="background-color: <?php echo esc_attr(get_field('blog_post_colour') ? get_field('blog_post_colour') : '#F4F4F4'); ?>;">
+		<div class="hero" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-bg-2.jpg' ); ?>')">
 			<div class="hero-overlay">
 				<div class="container">
 					<div class="tags">
@@ -48,9 +48,29 @@
 						?>
 					</div>
 
+					<div class="breadcrumbs">
+						<?php custom_course_breadcrumbs(); ?>
+					</div>
 					<h1 class="entry-title">
 						<?php the_title(); ?>
 					</h1>
+					<div class="dates">
+						<?php 
+
+						$start_date = get_field('course_start_date');
+						$end_date = get_field('course_end_date');
+
+						if ( $start_date && $end_date ) {
+							?>
+							<span><i class="fa-solid fa-calendar"></i><?php echo esc_html( $start_date ); ?> - <?php echo esc_html( $end_date ); ?></span>
+							<?php
+						}
+						?>
+					</div>
+					<div class="buttons-holder">
+						<a class="btn btn-primary cta" href="<?php echo get_field('store_page_link') ?>" target="_blank">Buy Course <i class="fa-solid fa-cart-shopping"></i></a>
+						<a class="read-more-link" href="#courseContent">Read More</a>
+					</div>
 					
 					<?php
 						if ( 'post' === get_post_type() ) :
@@ -84,9 +104,53 @@
 						</div>
 						
 					</div>
+					<div class="col-12 col-md-4">
+						<div class="side-card">
+							<div class="row">
+								<h3 class="side-card-header">This course is part of the
+									<?php
+										// Get the categories associated with the current post
+										$terms = get_the_terms( get_the_ID(), 'course_category' );
+
+										if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+											foreach ( $terms as $term ) {
+												echo '<a href="' . esc_url( get_term_link( $term ) ) . '">' . esc_html( $term->name ) . '</a>';
+											}
+										}
+									?> series.
+								</h3>
+								<div class="price">
+									<span class="value">
+										<?php
+										$price = get_field('price');
+
+										// Output the price
+										if ($price) {
+											echo $price;
+										} else {
+											echo 'Price not available';
+										}
+										?>
+									</span>
+								</div>
+
+								<?php if ($price && strtolower($price) !== 'free') : ?>
+									<a class="btn cta buy" href="<?php echo esc_url( get_field('store_page_link') ); ?>" target="_blank">Buy this Course <i class="fa-solid fa-cart-shopping"></i></a>
+								<?php endif; ?>
+
+								<div class="row">
+									<h4>Know someone who would benefit from this course?</h4>
+									<p>Why not share it with them?</p>
+									<button id="copyLinkButton" onclick="copyLinkToClipboard()" class="cta">Copy Link <i class="fa-regular fa-copy"></i></button>
+									<p id="copyMessage" style="display:none;">Link copied to clipboard!</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<?php
+
 				wp_link_pages( array( 'before' => '<div class="page-link"><span>' . esc_html__( 'Pages:', 'cambridge-igcse-tuition' ) . '</span>', 'after' => '</div>' ) );
 			?>
 		</div>
@@ -131,7 +195,7 @@
 </article><!-- /#post-<?php the_ID(); ?> -->
 
 <section id="contact" class="contact-section">
-	<div class="contact-section-form-holder" style="background-color: <?php echo esc_attr(get_field('blog_post_colour')); ?>;">
+	<div class="contact-section-form-holder" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-3.png' ); ?>')">
 		<div class="backdrop">
 			<div class="container">
 				<div class="content">

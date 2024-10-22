@@ -51,10 +51,18 @@ document.addEventListener('DOMContentLoaded', function() {
         document.execCommand("copy");
         document.body.removeChild(tempInput);
 
-        var copyMessage = document.getElementById("copyMessage");
-        copyMessage.style.display = "block";
+        // Change button text to indicate link copied, including the icon
+        var copyButton = document.getElementById("copyLinkButton");
+        var originalText = copyButton.innerHTML;
+        copyButton.innerHTML = 'Link copied to clipboard! <i class="fa-solid fa-circle-check"></i>';
+        
+        // Add "copy-confirm" class
+        copyButton.classList.add("copy-confirm");
+
+        // Revert back to original text and remove the class after 3 seconds
         setTimeout(function() {
-            copyMessage.style.display = "none";
+            copyButton.innerHTML = originalText;
+            copyButton.classList.remove("copy-confirm");
         }, 3000);
     }
 
@@ -106,24 +114,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Making each section fade in when scrolled on
 
-document.addEventListener("DOMContentLoaded", function() {
-    const sections = document.querySelectorAll("section");
+window.addEventListener("load", function() {
+    const elementsToObserve = document.querySelectorAll(".wptww-quote, section, article, .service-block, .wp-block-cover__inner-container, .hero > .container, .page-id-14.about-text-section h3, .page-id-14.about-text-section p");
 
     const observer = new IntersectionObserver(
         (entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("visible");
-                    observer.unobserve(entry.target); // Stop observing once the section is visible
+                    observer.unobserve(entry.target);
                 }
             });
         },
         {
-            threshold: 0.25 // Trigger when 25% of the section is in view
+            threshold: 0.25,
         }
     );
 
-    sections.forEach(section => {
-        observer.observe(section);
+    elementsToObserve.forEach(element => {
+        observer.observe(element);
     });
 });

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Template for displaying Archive pages.
+ * The Template for displaying Course Category Archive pages.
  */
 
 get_header();
@@ -30,6 +30,27 @@ if ( have_posts() ) :
 				<div class="row">
 					<div class="col-lg-7">
 						<h1 class="page-title">
+						
+						<?php 
+						// Get the current taxonomy term object
+						$term = get_queried_object(); // Gets the current taxonomy term (e.g., custom taxonomy)
+
+						// Default color if the custom field is not set
+						$default_color = '#000000'; // Black color or any default color you prefer
+
+						if ($term && !is_wp_error($term)) {
+							// Retrieve the color field for the current taxonomy term
+							$category_colour = get_field('category_colour', $term);
+							
+							// Use the custom color if available, otherwise use the default color
+							$color = $category_colour ? esc_attr($category_colour) : $default_color;
+						} else {
+							// Fallback if term retrieval fails, use the default color
+							$color = $default_color;
+						}
+						?>
+
+						<span class="course-colour" style="color: <?php echo $color; ?>;">&bull;</span>
 
 						<?php
 							if ( is_day() ) :
@@ -42,9 +63,45 @@ if ( have_posts() ) :
 								esc_html_e( '', 'cambridge-igcse-tuition' );
 							endif;
 
+							// Display term names
+							$terms = get_the_terms( get_the_ID(), 'course_category' );
+							if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+								foreach ( $terms as $term ) {
+									echo esc_html( $term->name );
+								}
+							}
 						?>
 						</h1>
-					</div>			
+						<div class="course-description">
+							<?php 
+								// Get the full term description
+								$full_description = term_description();
+								
+								// Use regex to extract the first paragraph
+								preg_match('/<p>(.*?)<\/p>/', $full_description, $first_paragraph);
+
+								// Display the first paragraph
+								if (isset($first_paragraph[0])) {
+									echo $first_paragraph[0];
+								}
+							?>
+
+							<!-- Hidden section for the full description -->
+							<div class="full-description">
+								<?php echo $full_description; ?>
+							</div>
+
+							<!-- Read More link -->
+							<a class="btn btn-secondary cta read-more" href="#">Read more</a>
+						</div>
+					</div>
+					
+					<div class="col-lg-5">
+					<section class="search-section">
+						<h3><i class="fa-solid fa-magnifying-glass"></i>Search for Courses</h3>
+						<?php echo do_shortcode( '[searchandfilter fields="search,course_category" types=",select" submit_label="Search Courses"]' ); ?>
+					</section>
+					</div>				
 				</div>		
 			</div>
 		</div>

@@ -607,7 +607,7 @@ function custom_course_breadcrumbs() {
     global $post;
 
     // Define the main "Courses" link (modify the URL to your Courses page)
-    $courses_link = '<a href="' . get_permalink( get_page_by_path( 'courses' ) ) . '">Courses</a>';
+    $courses_link = '<a href="/?s=">Courses</a>';
     
     // Get the terms (categories) associated with the post
     $terms = get_the_terms($post->ID, 'course_category'); // 'course_category' should be the custom taxonomy for courses

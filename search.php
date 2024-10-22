@@ -56,7 +56,7 @@ wp_reset_postdata();
 ?>
 
 <section id="contact" class="contact-section">
-    <div class="contact-section-form-holder" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-2.jpg' ); ?>')">
+    <div class="contact-section-form-holder" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'full' ) ?: get_template_directory_uri() . '/assets/images/course-archive-bg-3.png' ); ?>')">
         <div class="backdrop">
             <div class="container">
                 <div class="content">
