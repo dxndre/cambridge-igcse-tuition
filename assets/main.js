@@ -160,10 +160,47 @@ function smoothParallax() {
 
 // Contact link automatically dismisses offcanvas menu 
 
-// Select the link by its title, href, class, or any other identifier
-// const contactLink = document.querySelector('a.nav-link[href="#contact"]');
+document.addEventListener('DOMContentLoaded', function () {
+    const contactLink = document.querySelector('.nav-link[href="#contact"]');
+    const offcanvasElement = document.querySelector('.offcanvas');
 
-// // Add the data attribute if the element is found
-// if (contactLink) {
-//     contactLink.setAttribute('data-bs-dismiss', 'offcanvas');
-// }
+    contactLink.addEventListener('click', function (e) {
+        // Close the offcanvas menu
+        const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+        if (bsOffcanvas) {
+            bsOffcanvas.hide();
+        }
+    });
+});
+
+
+// AAutomatically select value from dropdown from CTA's on Services page 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const ctaButtons = [
+        { selector: '.cta-academic', value: 'Academic Mentoring and Support' },
+        { selector: '.cta-past-paper', value: 'Past Paper Marking Service' },
+        { selector: '.cta-ucas', value: 'UCAS Application Guidance and Advice' },
+        { selector: '.cta-professional', value: 'Professional Report and Reference Services' }
+    ];
+
+    ctaButtons.forEach(cta => {
+        const button = document.querySelector(cta.selector);
+        if (button) {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector('#contact').scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                setTimeout(() => {
+                    const dropdown = document.querySelector('#contact select[name="menu-253"]');
+                    if (dropdown) {
+                        dropdown.value = cta.value;
+                    }
+                }, 500);
+            });
+        }
+    });
+});
