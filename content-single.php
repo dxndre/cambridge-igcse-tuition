@@ -81,8 +81,47 @@
 							<?php
 								the_content();
 							?>
+						</div>					
+					</div>
+					<div class="col-12 col-md-4">
+						<div class="side-card">
+							<div class="row">
+							<?php
+							// Get the current post's ID and post type
+							$current_post_id = get_the_ID();
+							$post_type = get_post_type($current_post_id);
+
+							// Set up the WP_Query arguments
+							$args = array(
+								'post_type'      => $post_type,
+								'posts_per_page' => 5,
+								'post__not_in'   => array($current_post_id), // Exclude the current post
+								'orderby'        => 'rand', // Randomize posts
+							);
+
+							// Execute the query
+							$related_posts = new WP_Query($args);
+
+							if ($related_posts->have_posts()) : ?>
+								<h3 class="side-card-header">Related Posts</h3>
+								<ul class="related-posts">
+									<?php while ($related_posts->have_posts()) : $related_posts->the_post(); ?>
+										<li>
+											<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+										</li>
+									<?php endwhile; ?>
+								</ul>
+								<?php wp_reset_postdata(); ?>
+							<?php endif; ?>
+
+								<div class="row">
+									<h4>Know someone who would benefit from this post?</h4>
+									<p>Why not share it with them?</p>
+									<button id="copyLinkButton" onclick="copyLinkToClipboard()" class="cta">Copy Link <i class="fa-regular fa-copy"></i></button>
+									<p id="copyMessage" style="display:none;">Link copied to clipboard!</p>
+								</div>
+							</div>
 						</div>
-						
 					</div>
 				</div>
 
@@ -133,13 +172,11 @@
 <section id="contact" class="contact-section">
 	<div class="contact-section-form-holder" style="background-color: <?php echo esc_attr(get_field('blog_post_colour')); ?>;">
 		<div class="backdrop">
-			<div class="container">
-				<div class="content">
-					<h3>Leave a message</h3>
-					<?php
-						echo do_shortcode('[contact-form-7 id="f64b68e" title="Leave a message"]');
-					?>
-				</div>
+			<div class="content">
+				<h3>Leave a message</h3>
+				<?php
+					echo do_shortcode('[contact-form-7 id="f64b68e" title="Leave a message"]');
+				?>
 			</div>
 		</div>
 	</div>

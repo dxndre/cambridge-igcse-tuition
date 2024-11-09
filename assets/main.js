@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Making each section fade in when scrolled on
 
 window.addEventListener("load", function() {
-    const elementsToObserve = document.querySelectorAll(".wptww-quote, section, article, .service-block, .wp-block-cover__inner-container, .hero > .container, .page-id-14.about-text-section h3, .page-id-14.about-text-section p");
+    const elementsToObserve = document.querySelectorAll(".wptww-quote, section, article, .service-block, .wp-block-cover__inner-container, .hero > .container, .page-id-14.about-text-section h3, .page-id-14.about-text-section p, .single .hero .hero-overlay, .single .side-card, .page-id-318 .wp-block-cover__inner-container, .page-id-265 .shop-courses-section .wp-block-post");
 
     const observer = new IntersectionObserver(
         (entries, observer) => {
@@ -135,3 +135,35 @@ window.addEventListener("load", function() {
         observer.observe(element);
     });
 });
+
+// Parallax effect for All Courses page 
+
+let scrollPosition = 0;
+let targetPosition = 0;
+
+document.addEventListener('scroll', function() {
+    targetPosition = window.pageYOffset * 0.25;
+    requestAnimationFrame(smoothParallax);
+});
+
+function smoothParallax() {
+    // Interpolate between current and target positions to create easing
+    scrollPosition += (targetPosition - scrollPosition) * 0.1; // Adjust 0.1 for different easing speeds
+    document.body.style.backgroundPositionY = -scrollPosition + 'px';
+
+    // Continue the animation if the target position hasn't been reached
+    if (Math.abs(targetPosition - scrollPosition) > 0.1) {
+        requestAnimationFrame(smoothParallax);
+    }
+}
+
+
+// Contact link automatically dismisses offcanvas menu 
+
+// Select the link by its title, href, class, or any other identifier
+// const contactLink = document.querySelector('a.nav-link[href="#contact"]');
+
+// // Add the data attribute if the element is found
+// if (contactLink) {
+//     contactLink.setAttribute('data-bs-dismiss', 'offcanvas');
+// }

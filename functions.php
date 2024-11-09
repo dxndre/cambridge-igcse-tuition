@@ -297,11 +297,11 @@ if ( ! function_exists( 'cambridge_igcse_tuition_article_posted_on' ) ) {
 	 */
 	function cambridge_igcse_tuition_article_posted_on() {
 		printf(
-			wp_kses_post( __( '<span class="sep">Posted on </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author-meta vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>', 'cambridge-igcse-tuition' ) ),
+			wp_kses_post( __( '<span class="sep">Posted on </span><time class="entry-date" datetime="%3$s">%4$s</time><span class="by-author"> <span class="sep"> by </span> <span class="author-meta vcard"><span class="url fn n" title="%6$s" rel="author">%7$s</span></span>', 'cambridge-igcse-tuition' ) ),
 			esc_url( get_the_permalink() ),
-			esc_attr( get_the_date() . ' - ' . get_the_time() ),
+			esc_attr( get_the_date() ),
 			esc_attr( get_the_date( 'c' ) ),
-			esc_html( get_the_date() . ' - ' . get_the_time() ),
+			esc_html( get_the_date() ),  // Date only, no link
 			esc_url( get_author_posts_url( (int) get_the_author_meta( 'ID' ) ) ),
 			sprintf( esc_attr__( 'View all posts by %s', 'cambridge-igcse-tuition' ), get_the_author() ),
 			get_the_author()
@@ -607,7 +607,7 @@ function custom_course_breadcrumbs() {
     global $post;
 
     // Define the main "Courses" link (modify the URL to your Courses page)
-    $courses_link = '<a href="/?s=">Courses</a>';
+    $courses_link = '<a href="/courses">Courses</a>';
     
     // Get the terms (categories) associated with the post
     $terms = get_the_terms($post->ID, 'course_category'); // 'course_category' should be the custom taxonomy for courses
@@ -631,17 +631,25 @@ function custom_course_breadcrumbs() {
 }
 
 
-// Only get courses from search results
+// Only get courses from search results by default
 
-function modify_search_filter_query( $query ) {
-    if ( !is_admin() && $query->is_search() && $query->is_main_query() ) {
-        // Check if Search and Filter plugin is active and the post type is not set
-        if ( isset($_GET['s']) && empty($query->get('post_type')) ) {
-            $query->set( 'post_type', 'igcse' ); // Restrict to 'igcse' post type
-        }
-    }
-}
-add_action( 'pre_get_posts', 'modify_search_filter_query' );
+// function custom_search_filter_for_article( $query ) {
+//     if ( !is_admin() && $query->is_search() && $query->is_main_query() ) {
+//         // Check if the search is coming from the Search and Filter form
+//         if ( isset($_GET['s']) && !empty($_GET['taxonomy_terms']) && $_GET['taxonomy_terms'] == 'article' ) {
+//             $query->set( 'post_type', 'post' ); // Set to 'post' type
+//             $query->set( 'tax_query', array(
+//                 array(
+//                     'taxonomy' => 'category',
+//                     'field'    => 'slug',
+//                     'terms'    => 'article',
+//                 ),
+//             ));
+//         }
+//     }
+// }
+// add_action( 'pre_get_posts', 'custom_search_filter_for_article' );
+
 
 
 

@@ -4,32 +4,31 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( is_sticky() ? 'col-lg-6 col-xl-8' : 'col-sm-6 col-xl-4' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( is_sticky() ? 'col-lg-6 col-xl-8' : 'col-sm-6 col-lg-4 ' ); ?>>
 	<div class="card mb-4">
 		<div class="card-header">
-			<?php
-				// Get the terms for the custom taxonomy associated with the post
-				$terms = get_the_terms( get_the_ID(), 'course_category' );
 
-				if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
-					foreach ( $terms as $term ) {
-						// Get the category color from the custom field
-						$category_colour = get_field('category_colour', $term);
-						
-						// Default color if no custom field is set
-						$color = $category_colour ? esc_attr($category_colour) : '#000000'; // Use black as default if no color is set
-						
-						// Output the term name and apply the background color
-						echo '<span class="course-category-pin" style="background-color: ' . $color . ';">' . esc_html($term->name) . '</span>';
-						
-						// Only show the first term; if you want to display multiple terms, remove the `break;`
-						break;
+				<div class="tags">
+					<?php
+					// Get the terms for the custom taxonomy associated with the post
+					$terms = get_the_terms(get_the_ID(), 'course_category');
+
+					if (!empty($terms) && !is_wp_error($terms)) {
+						foreach ($terms as $term) {
+							// Get the category color from the custom field
+							$category_colour = get_field('category_colour', $term);
+
+							// Default color if no custom field is set
+							$color = $category_colour ? esc_attr($category_colour) : '#000000'; // Use black as default if no color is set
+
+							// Output the term name and apply the background color
+							echo '<span class="course-category-pin" style="background-color: ' . $color . ';">' . esc_html($term->name) . '</span>';
+
+							// Only show the first term; if you want to display multiple terms, remove the `break;`
+							break;
+						}
 					}
-				}
-			?>
 
-			<div class="tags">
-				<?php
 					$tags = get_the_tags();
 
 					// Check if the post is sticky
@@ -70,12 +69,11 @@
 					// Add a "Sticky" tag if the post is sticky
 					if ($is_sticky) {
 						echo '<span class="tag sticky">
-								<i class="fa-solid fa-thumbtack"></i> ' . esc_html__( 'Featured Post', 'cambridge-igcse-tuition' ) . '
+								<i class="fa-solid fa-thumbtack"></i> ' . esc_html__('Featured Post', 'cambridge-igcse-tuition') . '
 							</span>';
 					}
-				?>
-			</div>
-
+					?>
+				</div>
 		</div>
 		<header class="card-body">
 			<h3 class="card-title">
