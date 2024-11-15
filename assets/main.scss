@@ -1506,6 +1506,7 @@ body {
 					background: white;
 					border: 1px solid white;
 					border-radius: 10px;
+					width: 100%;
 			
 					h4, i {
 						display: none;
@@ -1527,8 +1528,8 @@ body {
 							}
 			
 							@include media-breakpoint-up(xl) {
-								font-size: 18px;
-								line-height: 32px;
+								font-size: 16px;
+								line-height: 30px;
 							}
 						}
 					}
@@ -1570,6 +1571,11 @@ body {
 				width: 100%;
 				max-width: 992px;
 				margin: 64px auto;
+
+				.wpcf7-spinner {
+					margin: 0 auto;
+					transform: translateY(12px);
+				}
 
 				label {
 					width: 100%;
@@ -3931,7 +3937,8 @@ body {
 					}
 
 					.backdrop {
-						background: linear-gradient(0deg, rgba(255, 248, 230, 0) 0%, #fff8e6 100%);
+						// background: linear-gradient(0deg, rgba(255, 248, 230, 0) 0%, #fff8e6 100%);
+						background: transparent;
 					}
 					form {
 						width: 100%;
